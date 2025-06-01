@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  background-color: #f0f0f0;
+}
+
+.crypto-box {
+  display: flex;
+  justify-content: space-evenly;
+}
+.crypto-box table {
+  width: 100%;
+}
+.crypto-box table th {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+.crypto-box table td {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  text-align: left;
+}/*# sourceMappingURL=style.css.map */
