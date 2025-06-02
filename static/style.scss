@@ -1,58 +1,58 @@
-
-
 body {
-    font-family: Arial, sans-serif;
-    padding: 2rem;
-    background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
 }
 
 .crypto-box {
-    display:flex;
-    justify-content: space-evenly;
-    table{
-        width:100%;
-        th{
-            padding: 1rem;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-        td{
-            padding: 1rem;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
+  display: flex;
+  justify-content: space-evenly;
+  table {
+    width: 100%;
+    th {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      text-align: left;
     }
-
+    td {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+  }
 }
-.login{
-    height:500px;
-    .box{
-        
-        &-all{
-    
-            .box-cont{
-                
-                .btn-log{
-                    display: flex;
-                    justify-self: center;
-                    width:100px;
-                    height:80px;
-                    border-radius: 15px;
-                    font-weight: 700;
-                    font-size:16px;
-                    background-color: rgb(188, 235, 144);
-                    border:1px solid black;
-                }
-            }
-            .box-down{
-            
-                a{
-                    text-decoration: none;
-                    color:black;
-
-                }
-            }
-        }
-        
+.login {
+  height: 500px;
+  .back-to-site {
+    a {
+      display: flex;
+      align-items: center;
+      background-color: #d4d4d4;
+      color: black;
+      border: 1px solid black;
+      font-weight: 600;
     }
+  }
+  .box {
+    &-all {
+      .box-cont {
+        .btn-log {
+          display: flex;
+          justify-self: center;
+          width: 100px;
+          height: 80px;
+          border-radius: 15px;
+          font-weight: 700;
+          font-size: 16px;
+          background-color: rgb(188, 235, 144);
+          border: 1px solid black;
+        }
+      }
+      .box-down {
+        a {
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+  }
 }

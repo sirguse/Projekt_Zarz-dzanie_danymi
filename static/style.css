@@ -1,7 +1,6 @@
 body {
   font-family: Arial, sans-serif;
   padding: 2rem;
-  background-color: #f0f0f0;
 }
 
 .crypto-box {
@@ -24,6 +23,14 @@ body {
 
 .login {
   height: 500px;
+}
+.login .back-to-site a {
+  display: flex;
+  align-items: center;
+  background-color: #d4d4d4;
+  color: black;
+  border: 1px solid black;
+  font-weight: 600;
 }
 .login .box-all .box-cont .btn-log {
   display: flex;

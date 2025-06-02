@@ -12,10 +12,34 @@ db = SQLAlchemy(app)
 
 API_KEY = "f50a08ce-5116-4b61-b898-faf0a5a1450b"
 
+def get_crypto_price(symbol):
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
+    params = {
+        'symbol': symbol,
+        'convert': 'USD'
+    }
+    headers = {
+        'Accepts': 'application/json',
+        'X-CMC_PRO_API_KEY': API_KEY
+    }
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        return response.json()['data'][symbol]['quote']['USD']['price']
+    else:
+        return None
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+
+class WalletItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    coin_symbol = db.Column(db.String(10), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 
 
 with app.app_context():
@@ -83,11 +107,55 @@ def login():
             flash('Nieprawidłowy login lub hasło.')
     return render_template('login.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if 'user' in session:
-        return render_template('dashboard.html', user=session['user'])
-    return redirect(url_for('login'))
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(username=session['user']).first()
+
+    if request.method == 'POST':
+        symbol = request.form['symbol'].upper()
+        amount = float(request.form['amount'])
+        item = WalletItem(coin_symbol=symbol, amount=amount, user_id=user.id)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+
+    wallet = WalletItem.query.filter_by(user_id=user.id).all()
+    wallet_data = []
+    total_value = 0
+
+    for item in wallet:
+        price = get_crypto_price(item.coin_symbol)
+        if price:
+            value = price * item.amount
+            total_value += value
+            wallet_data.append({
+                'id': item.id,
+                'symbol': item.coin_symbol,
+                'amount': item.amount,
+                'price': round(price, 2),
+                'value': round(value, 2)
+            })
+
+    return render_template('dashboard.html', user=user.username, wallet=wallet_data, total_value=round(total_value, 2))
+
+@app.route('/delete_wallet_item/<int:item_id>')
+def delete_wallet_item(item_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    item = WalletItem.query.get_or_404(item_id)
+    current_user = User.query.filter_by(username=session['user']).first()
+
+    if item.user_id != current_user.id:
+        return "Brak dostępu", 403
+
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
+
 
 @app.route('/logout')
 def logout():
