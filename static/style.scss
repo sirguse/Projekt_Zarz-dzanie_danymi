@@ -1,3 +1,5 @@
+
+
 body {
     font-family: Arial, sans-serif;
     padding: 2rem;
@@ -21,4 +23,36 @@ body {
         }
     }
 
+}
+.login{
+    height:500px;
+    .box{
+        
+        &-all{
+    
+            .box-cont{
+                
+                .btn-log{
+                    display: flex;
+                    justify-self: center;
+                    width:100px;
+                    height:80px;
+                    border-radius: 15px;
+                    font-weight: 700;
+                    font-size:16px;
+                    background-color: rgb(188, 235, 144);
+                    border:1px solid black;
+                }
+            }
+            .box-down{
+            
+                a{
+                    text-decoration: none;
+                    color:black;
+
+                }
+            }
+        }
+        
+    }
 }

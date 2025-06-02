@@ -20,4 +20,23 @@ body {
   padding: 1rem;
   border: 1px solid #ccc;
   text-align: left;
+}
+
+.login {
+  height: 500px;
+}
+.login .box-all .box-cont .btn-log {
+  display: flex;
+  justify-self: center;
+  width: 100px;
+  height: 80px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: rgb(188, 235, 144);
+  border: 1px solid black;
+}
+.login .box-all .box-down a {
+  text-decoration: none;
+  color: black;
 }/*# sourceMappingURL=style.css.map */
